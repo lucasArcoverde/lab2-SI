@@ -1,7 +1,6 @@
 angular.module('seriesApp').controller('seriesController', function($scope,$http) {
 
 	$scope.series = [];
-	$scope.searchState = "";
 	$scope.watchListSeries = [];
 	$scope.profileSeries = [];
 
@@ -12,7 +11,10 @@ angular.module('seriesApp').controller('seriesController', function($scope,$http
 	$scope.getSeries = function(name) {
 		var promise = $http.get('https://omdbapi.com/?s=' + name + '&type=series&apikey=93330d3c').then(function(response) {
 			$scope.series = response.data.Search;
-			$scope.searchState = response.data.Error;
+			$scope.searchState = response.data;
+			if ($scope.searchState.Response == "False") {
+				alert("Serie not found!");
+			}
 		}, function error(error) {
 			console.log(error);
 		})
@@ -22,40 +24,52 @@ angular.module('seriesApp').controller('seriesController', function($scope,$http
 	};
 
 
-	$scope.addSerie = function(name) {
+	$scope.addProfileSerie = function(name) {
 		if (!$scope.profileSeriesContains(name)) {
 			var promise = $http.get('https://omdbapi.com/?i=' + name.imdbID + '&plot=full&apikey=93330d3c');
 			promise.then(function(response) {
-				var serie = response.data;
-				$scope.profileSeries.push(serie);
+				var fullSerie = response.data;
+				$scope.profileSeries.push(fullSerie);
 			}).catch(function(error) {
 				console.log(error);
 			});		
 		} else {
 			alert("Serie already added.");
 		};
+
+		if ($scope.watchListSeries,name){
+			var pos = $scope.watchListSeries.indexOf(name);
+			$scope.watchListSeries.splice(pos,1);
+		}
 	};
 
-	$scope.removeSerie = function(name) {
+	$scope.removeProfileSerie = function(name) {
 		var validate = confirm("Are you sure that you want to remove: " + name.Title + " from your profile?");
-		if ($scope.profileSeriesContains(name)) {
+		if (validate) {
 			var pos = $scope.profileSeries.indexOf(name);
 			$scope.profileSeries.splice(pos,1);
 		}
 	}
 
 	$scope.watchAddSerie = function(name) {
-		if (!$scope.watchListContains(name)) {
-			var promise = $http.get('https://omdbapi.com/?i=' + name.imdbID + '&plot=full&apikey=93330d3c');
-			promise.then(function(response) {
-				var serie = response.data;
-				$scope.watchListSeries.push(serie);
-			}).catch(function(error) {
-				console.log(error);
-			});		
-		} else {
-			alert("Serie already added.");
+		if ($scope.watchListSeries,name){
+			var pos = $scope.watchListSeries.indexOf(name);
+			$scope.watchListSeries.splice(pos,1);
+		}
+		if ($scope.profileSeriesContains(name)) {
+			alert("You can't add this serie in your watchlist, because it is already in your profile");
+		}else {
+			if (($scope.watchListSeries,name)) {
+				$scope.watchListSeries.push(name);
+			} else {
+				alert("Serie already in your watchlist");
+			};
 		};
+	};
+
+	$scope.watchRemoveSerie = function(name) {
+		var pos = $scope.watchListSeries.indexOf(name);
+		$scope.watchListSeries.splice(pos,1);
 	};
 
 	$scope.profileSeriesContains = function(name) {
@@ -66,7 +80,6 @@ angular.module('seriesApp').controller('seriesController', function($scope,$http
 		}
 		return false;
 	};
-
 	$scope.watchListContains = function(name) {
 		for (var i = 0; i < $scope.watchListSeries.length; i++) {
 			if ($scope.watchListSeries[i].imdbID == name.imdbID) {
@@ -94,5 +107,12 @@ angular.module('seriesApp').controller('seriesController', function($scope,$http
 		$scope.watchList = true;
 	}
 
+	$scope.setMyRating = function(serie,nota) {
+		serie.myRating = nota;
+	};
+
+	$scope.setLastEpisode = function(serie, lastep) {
+		serie.lastEpisode = lastep;
+	}
 
 });

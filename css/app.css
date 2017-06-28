@@ -52,12 +52,15 @@
 .modal-content p {
 	color: black;
 }
-.apresentation {
-	font-family: Sofia, cursive;
-	font-family: Indie Flower, cursive;
-	color: white;
-	text-align: center;
+
+#details p {
+	color: black;
 }
+
+.buttonO {
+	padding: 16px;
+}
+
 #imageSize {
 	width: 235px;
 	height: 358px;
