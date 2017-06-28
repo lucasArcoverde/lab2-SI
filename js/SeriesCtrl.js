@@ -44,7 +44,7 @@ angular.module('seriesApp').controller('seriesController', function($scope,$http
 	};
 
 	$scope.removeProfileSerie = function(name) {
-		var validate = confirm("Are you sure that you want to remove: " + name.Title + " from your profile?");
+		var validate = confirm('Are you sure that you want to remove "' + name.Title + '" from your profile?');
 		if (validate) {
 			var pos = $scope.profileSeries.indexOf(name);
 			$scope.profileSeries.splice(pos,1);
@@ -52,17 +52,13 @@ angular.module('seriesApp').controller('seriesController', function($scope,$http
 	}
 
 	$scope.watchAddSerie = function(name) {
-		if ($scope.watchListSeries,name){
-			var pos = $scope.watchListSeries.indexOf(name);
-			$scope.watchListSeries.splice(pos,1);
-		}
 		if ($scope.profileSeriesContains(name)) {
 			alert("You can't add this serie in your watchlist, because it is already in your profile");
 		}else {
-			if (($scope.watchListSeries,name)) {
+			if ((!$scope.watchListContains(name))) {
 				$scope.watchListSeries.push(name);
 			} else {
-				alert("Serie already in your watchlist");
+				alert("Serie already in your watchList");
 			};
 		};
 	};

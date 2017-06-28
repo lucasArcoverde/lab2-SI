@@ -33,6 +33,9 @@
 
 	<div class="container"> 
 		<div id="home" class="tab-pane in active" ng-if="profile">
+			<div>
+				<h1 id="apresentation"> My Profile...</h1>
+			</div>
 			<md-list-item ng-repeat="serie in profileSeries">
 				<div class="col-lg-4">
 					<div class="hoverzoom">
@@ -101,6 +104,9 @@
 		</div>
 
 		<div id="search" class="tab-pane" ng-if="search">
+			<div>
+				<h1 id="apresentation"> Search...</h1>
+			</div>
 			<md-list-item ng-repeat="serie in series">
 				<div class="col-lg-4">
 					<div class="hoverzoom">
@@ -123,6 +129,9 @@
 		</div>
 		
 		<div id="watchlist" class="tap-pane" ng-if="watchList"> 
+			<div>
+				<h1 id="apresentation"> My Watchlist...</h1>
+			</div>
 			<md-list-item ng-repeat="serie in watchListSeries">
 				<div class="col-lg-4">
 					<div class="hoverzoom">
@@ -130,6 +139,9 @@
 							<img id="imageSize" src="{{serie.Poster !== 'N/A' ? serie.Poster: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Poster_not_available.jpg'}}">
 							<div class="retina">
 								<p>{{serie.Title}}</p>
+								<button class="buttonO" data-toggle="tab-pane" data-target="#home" ng-click="addProfileSerie(serie)" type="submit" value="Add to Profile">
+									<span class="glyphicon glyphicon-thumbs-up"></span>
+								</button>
 								<button class="buttonO" data-toggle="tab-pane" data-target="#watchlist" ng-click="watchRemoveSerie(serie)" type="submit" value="Remove from WatchList">
 									<span class="glyphicon glyphicon-thumbs-down"></span>
 								</button>
