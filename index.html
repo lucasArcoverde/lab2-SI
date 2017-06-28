@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app='seriesApp'>
+<head>
+	<title>Seriados</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/app.css">
+	<link rel="stylesheet" href="lib/bower_components/bootstrap/dist/css/bootstrap.css" />
+	<link rel="stylesheet" href="lib/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+	<script src="lib/bower_components/angular/angular.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/SeriesCtrl.js"></script>
+</head>
+
+<body class="corpo" ng-controller='seriesController'>
+	<div class="menu">
+		<ul class="nav nav-navbar"> 
+			<li><span>Seriados</span></li>
+			<li class="active"><a href="#home" ng-click="showProfile()">Home</a></li>
+			<li><a href="#watchlist" ng-click="showWatchList()">WatchList</a></li>
+			<li><a href="#search" ng-click="showSearch()">Search</a></li>
+			<form>
+				<input ng-model="filter" type="text" placeholder="Pesquisar serie">
+				<button class="btn btn-default btn-lg" type="submit" ng-click="getSeries(filter)">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+			</form>
+		</ul>
+		
+	</div>
+
+	<div class="container"> 
+		<div id="home" class="tab-pane in active" ng-if="profile">
+			<md-list-item ng-repeat="serie in profileSeries">
+				<div class="col-lg-4">
+					<div class="hoverzoom">
+						<div id="thumbsize" class="thumbnail grow">
+							<img id="imageSize" src="{{serie.Poster !== 'N/A' ? serie.Poster: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Poster_not_available.jpg'}}">
+							<div class="retina">
+								<p>{{serie.Title}}</p>
+								<p>{{serie.Year}} {{serie.Type}}</p>			
+								<button data-toggle="tab-pane" data-target="#profile" ng-click="removeSerie(serie)" type="submit" value="Remove from Profile"></button>
+									<span class="glyphicon glyphicon-thumbs-down"></span>
+								<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal{{$index}}"> <span class="glyphicon glyphicon-info-sign"></span></button>
+							</div>
+			  			</div>
+			  		</div>
+				</div>
+			</md-list-item>
+		</div>
+
+		<div id="search" class="tab-pane" ng-if="search">
+			<md-list-item ng-repeat="serie in series">
+					<div class="col-lg-4">
+						<div class="hoverzoom">
+							<div id="thumbsize" class="thumbnail grow">
+								<img id="imageSize" src="{{serie.Poster !== 'N/A' ? serie.Poster: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Poster_not_available.jpg'}}">
+								<div class="retina">
+									<p>{{serie.Title}}</p>
+									<p>{{serie.Year}} {{serie.Type}}</p>			
+									<button data-toggle="tab-pane" data-target="#home" ng-click="addSerie(serie)" type="submit" value="Add to Profile">
+										<span class="glyphicon glyphicon-thumbs-up"></span>
+									</button>
+									<button data-toggle="tab-pane" data-target="#watchlist" ng-click="watchAddSerie(serie)" type="submit" value="Add to WatchList">
+										<span class="glyphicon glyphicon-heart"></span>
+									</button>
+									<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal{{$index}}"> <span class="glyphicon glyphicon-info-sign"></span></button>
+								</div>
+				  			</div>
+						</div>
+					</div>
+				 <!-- Modal Home -->
+	 			  <div class="modal fade" id="myModal{{$index}}" role="dialog">
+					    <div class="modal-dialog modal-lg">
+					      <!-- Modal content-->
+						      <div class="modal-content">
+							        <div class="modal-header">
+							          <button type="button" class="close" data-dismiss="modal">&times;</button>
+							          <h4 class="modal-title alinhacentro">{{serie.Title}}</h4>
+							        </div>
+							        <div class="modal-body">
+							        	<div class="row">
+							        		<div class="col-md-4">
+												<img id="imageSize" src="{{serie.Poster !== 'N/A' ? serie.Poster: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Poster_not_available.jpg'}}">
+							        		</div>
+							        		<div class="col-md-8 sinopse">
+							        			<p>{{serie.Plot}}</p>
+							        		</div>
+							        		<div class="col-md-8 info">
+							        			<p>fuck</p>
+							        		</div>
+							        	</div>
+							        </div>
+								    <div class="modal-footer">
+							          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							        </div>
+						      </div>	      
+					    </div>
+				 </div>
+			</md-list-item>
+		</div>
+		
+		<div id="watchlist" class="tap-pane fade" ng-if="watchList"> 
+			<md-list-item ng-repeat="serie in watchList">
+				<div class="col-lg-4">
+					<div class="hoverzoom">
+						<div id="thumbsize" class="thumbnail grow">
+							<img id="imageSize" src="{{serie.Poster !== 'N/A' ? serie.Poster: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Poster_not_available.jpg'}}">
+							<div class="retina">
+								<p>{{serie.Title}}</p>
+								<button data-toggle="tab-pane" data-target="#watchlist" ng-click="removeSerie(serie)" type="submit" value="Remove from WatchList">
+									<span class="glyphicon glyphicon-thumbs-down"></span>
+								</button>
+								<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal{{$index}}"> 
+									<span class="glyphicon glyphicon-info-sign"></span>
+								</button>
+							</div>
+			  			</div>
+			  		</div>
+				</div>
+			</md-list-item>
+		</div>
+	
+	</div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+.menu ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 6;
+	overflow: hidden;
+	background-color: #333333;
+}
+
+.menu li span {
+	color: white;
+	text-align: center;
+	padding: 16px;
+	display:block;
+	text-decoration: none;
+}
+
+.menu li {
+	float:left;
+}
+
+.menu li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 16px;
+	height: 55px;
+	width: 205px;
+	text-decoration: none;
+}
+
+.menu li a:hover {
+	background-color: #111111;
+}
+
+.menu input {
+	padding: 16px;
+	width: 40%;
+	float : left;
+}
+
+.menu button {
+	padding: 15px;
+	float : left;
+}
+#home p {
+	color:white;
+}
+.corpo {
+	background-color: black;
+}
+
+.modal-content p {
+	color: black;
+}
+.apresentation {
+	font-family: Sofia, cursive;
+	font-family: Indie Flower, cursive;
+	color: white;
+	text-align: center;
+}
+#imageSize {
+	width: 235px;
+	height: 358px;
+}
+
+#thumbsize {
+	background-image: url("http://png.clipart.me/previews/90c/movie-poster-background-vector-material-17011.jpg")
+}
+
+.hoverzoom {
+		position: relative;
+    width: 350px;
+    overflow: hidden;
+}
+.hoverzoom > img {
+   width: 100%; 
+	border-radius: 2px;
+	-webkit-transition: all .8s cubic-bezier(.190, 1.000, .220, 1.000);
+	    -moz-transition: all .8s cubic-bezier(.190, 1.000, .220, 1.000);
+	     -ms-transition: all .8s cubic-bezier(.190, 1.000, .220, 1.000);
+	      -o-transition: all .8s cubic-bezier(.190, 1.000, .220, 1.000);
+	         transition: all .8s cubic-bezier(.190, 1.000, .220, 1.000);
+}
+.hoverzoom:hover > img {
+	-webkit-transform: scale(1.5);
+	   -moz-transform: scale(1.5);
+	    -ms-transform: scale(1.5);
+	     -o-transform: scale(1.5);
+	        transform: scale(1.5);
+}
+.hoverzoom .retina{
+	position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;    
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);    
+    border-radius: 2px;
+    text-align: center;
+    padding: 30px;
+ 
+    -webkit-transition:	 all .8s cubic-bezier(.190, 1.000, .220, 1.000);
+	    -moz-transition: all .8s cubic-bezier(.190, 1.000, .220, 1.000);
+	     -ms-transition: all .8s cubic-bezier(.190, 1.000, .220, 1.000);
+	      -o-transition: all .8s cubic-bezier(.190, 1.000, .220, 1.000);
+	         transition: all .8s cubic-bezier(.190, 1.000, .220, 1.000); 
+}
+.hoverzoom:hover .retina {
+    opacity: 1;
+    box-shadow: inset 0 0 100px 50px rgba(0,0,0,.5);
+    
+}
+.hoverzoom .retina p {
+	color: #fff;
+}
+.hoverzoom .retina a {
+	display: block;
+	width: 150px;
+	background: #6fc5e9;
+	border: 1px solid #59afd4;
+	border-radius: 4px;
+	color: #fff;
+	text-decoration: none;
+	text-align: center;
+	padding: 10px 15px;
+	margin: 16px auto 0;
+}
